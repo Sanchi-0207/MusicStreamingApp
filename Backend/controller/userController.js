@@ -1,31 +1,30 @@
-import {userData,findUser} from '../services/userService.js';
+import {authService,loginService,findUser} from '../services/userService.js';
  export const register=(request,response)=>{
    const data={
     userName:request.body.name,
     password:request.body.password,
    }
-   const foundUser=findUser(data.userName);
-   if(foundUser){
-    response.json('User already exists');
+   try{
+    const auth=new authService();
+    const result =auth.register(data.userName,data.password);
+    response.status(200).json({Data:result});
    }
-   else{
-   userData(data.userName,data.password);
-   response.json({Data:data});
+   catch(error){
+    response.status(400).json({error: error.message})
    }
  };
  export const login=(request,response)=>{
      const userName=request.body.name;
      const password=request.body.password;
-     const foundUser=findUser(userName);
-     if(!foundUser){
-      response.json('No user found');
+     try{
+      const login =new loginService();
+      const result= login.signin(userName,password);
+      response.status(200).json(result);
      }
-     if(foundUser.password===password){
-      response.json('Login successful');
-     }
-     else{
-      response.json('Incorrect password');
-     }
+     catch(error){
+      response.status(404).json({error:error.message});
+      response.status(401).json({error:error.message})
+    } 
 
  };
  

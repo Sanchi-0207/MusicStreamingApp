@@ -1,9 +1,11 @@
 import express from 'express';
-import userRoutes from './routes/userRoutes.js';
+import dotenv from 'dotenv';
+import router from './routes/userRoutes.js';
+dotenv.config();
+const PORT=process.env.port;
 const app = express();
-const port = 3000;
 app.use(express.json());
-app.use(userRoutes);
-app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+app.use(router);
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
