@@ -1,11 +1,7 @@
 var user=[];
-export const userData=(userName,password)=>{
-    user.push({userName, password });
-}
-export const findUser=(userName) =>{
-      return user.find((item) => item.userName === userName);
-    }
-export class authService{
+import jwt from 'jsonwebtoken';
+
+export class AuthService{
        register(userName,password){
         if(user.find((item)=> item.userName === userName )){
           throw Error('User already present');
@@ -14,16 +10,29 @@ export class authService{
         user.push(data);
         return data;
       }
+      signin(userName,password){
+        const findingUser=user.find((item)=>item.userName===userName);
+           if(!findingUser){
+            throw Error('No user found');
+           }
+           if(findingUser.password!=password){
+             throw Error('Incorrect password');
+           }
+           return 'Login successful';
+        } 
     }
-export class loginService{
-  signin(userName,password){
-  const findingUser=user.find((item)=>item.userName===userName);
-     if(!findingUser){
-      throw Error('No user found');
-     }
-     if(findingUser.password!=password){
-       throw Error('Incorrect password');
-     }
-     return 'Login successful';
-  }
+    
+export class TokenService{
+          static createToken(userName,SECRET_KEY){
+            return jwt.sign({ userName }, SECRET_KEY, { expiresIn: '1h' });
+          }
+          verifyToken(token,SECRET_KEY){
+            try {
+              return jwt.verify(token, SECRET_KEY);
+            } 
+            catch (error) {
+              throw Error('Invalid token');
+            }
+          }
 }
+
