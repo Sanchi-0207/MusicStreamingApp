@@ -1,8 +1,10 @@
 import {TokenService} from './tokenService.js';
-
+import dotenv from 'dotenv';
+dotenv.config();
+const secret_key=process.env.secret_key;
 var user=[];
 export class AuthService{
-       register(userName,password,secret_key){
+       register(userName,password){
         const tokenService=new TokenService();
         const token=tokenService.createToken(userName,secret_key);
         if(user.find((item)=> item.userName === userName )){
@@ -12,7 +14,7 @@ export class AuthService{
         user.push(data);
         return {data,token};
       }
-      signin(userName,password,secret_key){
+      signin(userName,password){
         const findingUser=user.find((item)=>item.userName===userName);
         const tokenService=new TokenService();
         const token=tokenService.createToken(userName,secret_key);
