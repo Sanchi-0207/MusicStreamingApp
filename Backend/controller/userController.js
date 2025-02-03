@@ -1,15 +1,32 @@
-exports.submitQuery=(request,response)=>{
-   const name=request.query.name;
-   response.json({data:name});
-};
-exports.submitPath=(request,response)=>{
-    const id=request.params.id;
-    response.json({data:id});
+import {AuthService} from '../services/authService.js';
+import dotenv from 'dotenv';
+dotenv.config();
+ export const register=(request,response)=>{
+   const data={
+    userName:request.body.name,
+    password:request.body.password,
+   }
+   try{
+    const authService=new AuthService();
+    const result =authService.register(data.userName,data.password);
+    response.status(200).json({data:result.data,token:result.token});
+   }
+   catch(error){
+    response.status(400).json({error: error.message})
+   }
  };
- exports.submitBody=(request,response)=>{
-    const name=request.body;
-    response.json({data:name});
+ export const login=(request,response)=>{
+     const userName=request.body.name;
+     const password=request.body.password;
+     try{
+      const authService=new AuthService();
+      const result= authService.signin(userName,password);
+      response.status(200).json({message:result.message,token:result.token});
+     }
+     catch(error){
+      const statuscode=error.message==='No user found'?404:401;
+      response.status(statuscode).json({error:error.message});
+    } 
+
  };
- exports.getName=(request,response)=>{
-    response.json({name:'Sanchi Chaurasia'});
- };
+ 
