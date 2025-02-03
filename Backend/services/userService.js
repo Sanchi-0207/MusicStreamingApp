@@ -1,38 +1,30 @@
-var user=[];
-import jwt from 'jsonwebtoken';
+import {TokenService} from './tokenService.js';
 
+var user=[];
 export class AuthService{
-       register(userName,password){
+       register(userName,password,secret_key){
+        const tokenService=new TokenService();
+        const token=tokenService.createToken(userName,secret_key);
         if(user.find((item)=> item.userName === userName )){
           throw Error('User already present');
         }
         const data={userName,password};
         user.push(data);
-        return data;
+        return {data,token};
       }
-      signin(userName,password){
+      signin(userName,password,secret_key){
         const findingUser=user.find((item)=>item.userName===userName);
+        const tokenService=new TokenService();
+        const token=tokenService.createToken(userName,secret_key);
            if(!findingUser){
             throw Error('No user found');
            }
            if(findingUser.password!=password){
              throw Error('Incorrect password');
            }
-           return 'Login successful';
+           return {message:'Login successful',token:token};
         } 
     }
     
-export class TokenService{
-          static createToken(userName,SECRET_KEY){
-            return jwt.sign({ userName }, SECRET_KEY, { expiresIn: '1h' });
-          }
-          verifyToken(token,SECRET_KEY){
-            try {
-              return jwt.verify(token, SECRET_KEY);
-            } 
-            catch (error) {
-              throw Error('Invalid token');
-            }
-          }
-}
+
 

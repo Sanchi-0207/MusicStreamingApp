@@ -1,17 +1,16 @@
-import {AuthService,TokenService} from '../services/userService.js';
+import {AuthService} from '../services/userService.js';
 import dotenv from 'dotenv';
 dotenv.config();
-const Secret_Key=process.env.SECRET_KEY;
+const secret_key=process.env.SECRET_KEY;
  export const register=(request,response)=>{
    const data={
     userName:request.body.name,
     password:request.body.password,
    }
    try{
-    const auth=new AuthService();
-    const result =auth.register(data.userName,data.password);
-    const token=TokenService.createToken(data.userName,Secret_Key);
-    response.status(200).json({Data:result,Token:token});
+    const authService=new AuthService();
+    const result =authService.register(data.userName,data.password,secret_key);
+    response.status(200).json({data:result.data,token:result.token});
    }
    catch(error){
     response.status(400).json({error: error.message})
@@ -20,11 +19,10 @@ const Secret_Key=process.env.SECRET_KEY;
  export const login=(request,response)=>{
      const userName=request.body.name;
      const password=request.body.password;
-     const token=TokenService.createToken(userName,Secret_Key);
      try{
-      const login =new AuthService();
-      const result= login.signin(userName,password);
-      response.status(200).json({message:result,token:token});
+      const authService=new AuthService();
+      const result= authService.signin(userName,password,secret_key);
+      response.status(200).json({message:result.message,token:result.token});
      }
      catch(error){
       response.status(404).json({error:error.message});
