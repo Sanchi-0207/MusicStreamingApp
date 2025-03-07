@@ -4,13 +4,13 @@ dotenv.config();
 const secret_key=process.env.secret_key;
 var user=[];
 export class AuthService{
-       register(userName,password){
+       register(userName,password,name){
         const tokenService=new TokenService();
         const token=tokenService.createToken(userName,secret_key);
         if(user.find((item)=> item.userName === userName )){
           throw Error('User already present');
         }
-        const data={userName,password};
+        const data={userName,password,name};
         user.push(data);
         return {data,token};
       }

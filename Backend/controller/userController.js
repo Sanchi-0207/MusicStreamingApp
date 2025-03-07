@@ -3,12 +3,13 @@ import dotenv from 'dotenv';
 dotenv.config();
  export const register=(request,response)=>{
    const data={
-    userName:request.body.name,
+    userName:request.body.userName,
     password:request.body.password,
+    name:request.body.name,
    }
    try{
     const authService=new AuthService();
-    const result =authService.register(data.userName,data.password);
+    const result =authService.register(data.userName,data.password,data.name);
     response.status(200).json({data:result.data,token:result.token});
    }
    catch(error){
