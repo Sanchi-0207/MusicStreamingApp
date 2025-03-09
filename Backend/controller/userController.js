@@ -28,6 +28,9 @@ dotenv.config();
       const statuscode=error.message==='No user found'?404:401;
       response.status(statuscode).json({error:error.message});
     } 
+ };
 
+ export const getName=(request,response)=>{
+    response.status(200).json({name:request.body.name});
  };
  
