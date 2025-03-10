@@ -31,6 +31,9 @@ dotenv.config();
  };
 
  export const getName=(request,response)=>{
-    response.status(200).json({name:request.body.name});
+  const authService=new AuthService();
+  const username=request.body.userName;
+    const name=authService.getName(username);
+    response.status(200).json({name:name});
  };
  

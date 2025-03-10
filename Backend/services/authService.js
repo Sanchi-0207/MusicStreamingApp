@@ -26,7 +26,16 @@ export class AuthService{
            }
            return {message:'Login successful',token:token};
         } 
+      getName(userName){
+        const findingUser=user.find((item)=>item.userName===userName);
+        if(!findingUser){
+          throw Error('No user found');
+        }
+        const name=findingUser.name;
+        return {name};
+      }
     }
-    
+
+   
 
 
