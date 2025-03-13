@@ -1,21 +1,24 @@
 import {TokenService} from './tokenService.js';
 import dotenv from 'dotenv';
+import {fetchData} from '../dataAccess/fetchData.js';
 dotenv.config();
 const secret_key=process.env.secret_key;
-var user=[];
 export class AuthService{
-       register(userName,password,name){
+       async register(userName,password,name){
         const tokenService=new TokenService();
         const token=tokenService.createToken(userName,secret_key);
-        if(user.find((item)=> item.userName === userName )){
+        const user=new fetchData();
+        const existingUser=await user.findUser(userName);
+        if(existingUser){
           throw Error('User already present');
         }
-        const data={userName,password,name};
-        user.push(data);
-        return {data,token};
+        const newUser=await user.createUser(userName,password,name);
+        
+        return {newUser,token};
       }
-      signin(userName,password){
-        const findingUser=user.find((item)=>item.userName===userName);
+      async signin(userName,password){
+        const user= new fetchData();
+        const findingUser=await user.findUser(userName);
         const tokenService=new TokenService();
         const token=tokenService.createToken(userName,secret_key);
            if(!findingUser){
