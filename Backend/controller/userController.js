@@ -17,7 +17,7 @@ dotenv.config();
    }
  };
  export const login=async(request,response)=>{
-     const userName=request.body.name;
+     const userName=request.body.userName;
      const password=request.body.password;
      try{
       const authService=new AuthService();
@@ -30,10 +30,10 @@ dotenv.config();
     } 
  };
 
- export const getName=(request,response)=>{
+ export const getName=async (request,response)=>{
   const authService=new AuthService();
   const username=request.body.userName;
-    const name=authService.getName(username);
+    const name=await authService.getName(username);
     response.status(200).json({name:name});
  };
  

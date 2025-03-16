@@ -1,19 +1,19 @@
 import {PrismaClient} from '@prisma/client';
 const prisma=new PrismaClient();
-export class fetchData{
+export class FetchData{
    async createUser(userName,password,name){
-      const NewUser=await prisma.user.create({
+      const newUser=await prisma.user.create({
         data:{
             userName:userName,
             password:password,
             name:name
         }
       })
-      return NewUser;
+      return newUser;
    }
    async findUser(userName){
     const findingUser= await prisma.user.findUnique({
-        where:{userName}
+        where:{userName},
     })
     return findingUser;
    }
