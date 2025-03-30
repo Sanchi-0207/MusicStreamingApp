@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 export class TokenService{
-     createToken(userName,SECRET_KEY){
-      return jwt.sign({ userName }, SECRET_KEY, { expiresIn: '1h' });
+     createToken(email,SECRET_KEY){
+      return jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
     }
     verifyToken(token,SECRET_KEY){
       try {

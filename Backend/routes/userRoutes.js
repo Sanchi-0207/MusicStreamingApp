@@ -1,8 +1,11 @@
 import express from 'express';
-import {register,login,getName} from '../controller/userController.js';
+import {register,login,getName,forgotPass,otp,resetPass} from '../controller/userController.js';
 import {auth} from '../middleware/auth.middleware.js';
 const router=express.Router();
 router.post('/register',register);
 router.post('/login',login);
 router.get('/name',auth,getName);
+router.post('/forgot',forgotPass);
+router.post('/reset',resetPass);
+router.post('/otp',otp);
 export default router;
