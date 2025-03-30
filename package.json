@@ -1,9 +1,9 @@
-
 {
-   "type":"module",
-  "dependencies": {
-    "@prisma/client": "^6.4.1",
-    "dotenv": "^16.4.7",
-    "jsonwebtoken": "^9.0.2"
-  }
+   "type": "module",
+   "dependencies": {
+      "@prisma/client": "^6.4.1",
+      "dotenv": "^16.4.7",
+      "jsonwebtoken": "^9.0.2",
+      "nodemailer": "^6.10.0"
+   }
 }
