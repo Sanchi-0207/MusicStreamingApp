@@ -1,0 +1,15 @@
+import express from 'express';
+import {register,login,getName,forgotPass,otp,resetPass,getSongs,setUserAsArtist,uploadSongs} from '../controller/userController.js';
+import {auth} from '../middleware/auth.middleware.js';
+import { authorizeRole } from '../middleware/role.middleware.js';
+const router=express.Router();
+router.post('/register',register);
+router.post('/login',login);
+router.get('/name',auth,getName);
+router.get('/songs',getSongs);
+router.post('/forgot',forgotPass);
+router.post('/reset',resetPass);
+router.post('/otp',otp);
+router.post('/artist',auth,setUserAsArtist);
+router.post('/upload',auth,authorizeRole("artist"),uploadSongs);
+export default router;
