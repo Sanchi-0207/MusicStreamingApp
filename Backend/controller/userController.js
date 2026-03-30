@@ -1,5 +1,4 @@
 import {AuthService} from '../services/authService.js';
-<<<<<<< HEAD
 import{SongService} from '../services/songService.js';
 import {Song} from '../dataAccess/song.js';
 import {User} from '../dataAccess/user.js';
@@ -13,10 +12,6 @@ const songService=new SongService();
 const tokenService = new TokenService();
 const authService = new AuthService();
 
-=======
-import dotenv from 'dotenv';
-dotenv.config();
->>>>>>> a3f2ea5cf494adeefc4758455133af136b4e79c0
  export const register=async (request,response)=>{
    const data={
     email:request.body.email,
@@ -24,14 +19,8 @@ dotenv.config();
     name:request.body.name,
    }
    try{
-<<<<<<< HEAD
     const result =await authService.register(data.email,data.password,data.name);
     response.status(200).json({message:"OTP sent"});
-=======
-    const authService=new AuthService();
-    const result =await authService.register(data.email,data.password,data.name);
-    response.status(200).json({data:result.userInfo,token:result.token});
->>>>>>> a3f2ea5cf494adeefc4758455133af136b4e79c0
    }
    catch(error){
     response.status(400).json({error: error.message})
@@ -40,20 +29,11 @@ dotenv.config();
  export const otp=async(request,response)=>{
   const data={
     email:request.body.email,
-<<<<<<< HEAD
     otp:request.body.otp
   }
   try{
     const result= await authService.verifyOTP(data.email,data.otp);
     response.status(200).json({data:result.newUser ,token:result.token  ,message:result.message});
-=======
-    OTP:request.body.OTP
-  }
-  try{
-    const authService=new AuthService();
-    const result= await authService.enterOTP(data.email,data.OTP);
-    response.status(200).json({data:result.newUser ,message:result.message});
->>>>>>> a3f2ea5cf494adeefc4758455133af136b4e79c0
   }
   catch(error){
     response.status(400).json({error: error.message})
@@ -63,14 +43,8 @@ dotenv.config();
      const email=request.body.email;
      const password=request.body.password;
      try{
-<<<<<<< HEAD
       const result=await authService.login(email,password);
       response.status(200).json({data:result.existingUser, message:result.message,token:result.token});
-=======
-      const authService=new AuthService();
-      const result=await authService.signin(email,password);
-      response.status(200).json({message:result.message,token:result.token});
->>>>>>> a3f2ea5cf494adeefc4758455133af136b4e79c0
      }
      catch(error){
       const statuscode=error.message==='No user found'?404:401;
@@ -80,19 +54,11 @@ dotenv.config();
  export const forgotPass=async(request,response)=>{
     const email=request.body.email;
     try{
-<<<<<<< HEAD
-=======
-      const authService=new AuthService();
->>>>>>> a3f2ea5cf494adeefc4758455133af136b4e79c0
       const result=await authService.forgotPassword(email);
       if (result.error) {
         return response.status(400).json({ error: result.error });
       }
-<<<<<<< HEAD
       response.status(200).json({message:result.message});
-=======
-      response.status(200).json({data:result.userInfo,message:result.message});
->>>>>>> a3f2ea5cf494adeefc4758455133af136b4e79c0
     }
     catch(error){
       response.status(400).json({ error: error.message });
@@ -105,10 +71,6 @@ dotenv.config();
     otp:request.body.otp
   }
   try{
-<<<<<<< HEAD
-=======
-    const authService=new AuthService();
->>>>>>> a3f2ea5cf494adeefc4758455133af136b4e79c0
       const result=await authService.resetPassword(data.email,data.newPass,data.otp);
       if (result.error) {
         return response.status(400).json({ error: result.error });
@@ -121,7 +83,6 @@ dotenv.config();
  };
 
  export const getName=async (request,response)=>{
-<<<<<<< HEAD
   const email=request.body.decodedToken.email;
     const name=await authService.getName(email);
     response.status(200).json({name:name});
@@ -195,11 +156,3 @@ dotenv.config();
     response.status(400).json({error:" "});
   }
  };*/
-=======
-  const authService=new AuthService();
-  const email=request.body.userName;
-    const name=await authService.getName(email);
-    response.status(200).json({name:name});
- };
- 
->>>>>>> a3f2ea5cf494adeefc4758455133af136b4e79c0

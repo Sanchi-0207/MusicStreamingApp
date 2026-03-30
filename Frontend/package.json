@@ -3,17 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "axios": "^1.13.4",
     "cra-template": "1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.13.0",
-=======
-    "cra-template": "1.2.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
->>>>>>> a3f2ea5cf494adeefc4758455133af136b4e79c0
     "react-scripts": "5.0.1",
     "web-vitals": "^4.2.4"
   },
